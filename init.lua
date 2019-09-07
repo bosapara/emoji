@@ -15,34 +15,33 @@ minetest.register_chatcommand("e", {
 })
 
 local v = {
-	{"1_emoji"},
-	{"2_emoji"},
-	{"3_emoji"},
-	{"4_emoji"},
-	{"5_emoji"},
-	{"6_emoji"},
-	{"7_emoji"},
-	{"8_emoji"},
-	{"9_emoji"},
-	{"10_emoji"},
-	{"11_emoji"},
-	{"12_emoji"},
-	{"13_emoji"},
-	{"14_emoji"},
-	{"15_emoji"},
-	{"16_emoji"},
-	{"17_emoji"},
-	{"18_emoji"},
-	{"19_emoji"},
-	{"20_emoji"},
-	{"21_emoji"},
+	{"1_emoji", ":)"},
+	{"2_emoji", "B-)"},
+	{"3_emoji", ":#"},
+	{"4_emoji", "*_*"},
+	{"5_emoji", ":D"},
+	{"6_emoji", ":*"},
+	{"7_emoji", ":_("},
+	{"8_emoji", ">:-["},
+	{"9_emoji", "]:-)"},
+	{"10_emoji", ":/"},
+	{"11_emoji", ";)"},
+	{"12_emoji", ":("},
+	{"13_emoji", ";P"},
+	{"14_emoji", ":'-D"},
+	{"15_emoji", "~:["},
+	{"16_emoji", "o_O"},
+	{"17_emoji", "xD"},
+	{"18_emoji", "xP"},
+	{"19_emoji", ":X"},
+	{"20_emoji", ":P"},
+	{"21_emoji", ":O"},
 	
 }
 
 minetest.register_on_player_receive_fields(function(player, formname, fields)
 	if formname=="emoji_form" then
 
-		
 		local pos = player:get_pos()
 		
 		for _, v in pairs(v) do
@@ -75,7 +74,38 @@ end)
 
 
 
+minetest.register_on_chat_message(function(name, message, pos)    
+	local checkingmessage=( name.." "..message .." " )
 
+	for _, v in pairs(v) do
+		if string.find(checkingmessage, v[2], 1, true) ~=nil then
+
+			local player = minetest.get_player_by_name(name)
+			
+			local pos = player:get_pos()
+			
+			minetest.add_particlespawner(
+				1, --amount
+				0.01, --time
+				{x=pos.x, y=pos.y+2, z=pos.z}, --minpos
+				{x=pos.x, y=pos.y+2, z=pos.z}, --maxpos
+				{x=0, y=0.15, z=0}, --minvel
+				{x=0, y=0.15, z=0}, --maxvel
+				{x=0,y=0,z=0}, --minacc
+				{x=0,y=0,z=0}, --maxacc
+				2.5, --minexptime
+				2.5, --maxexptime
+				9, --minsize
+				9, --maxsize
+				false, --collisiondetection
+				v[1]..".png"
+			)
+			
+		end
+	
+	end	
+		
+end)
 
 
 
