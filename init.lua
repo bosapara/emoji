@@ -107,7 +107,18 @@ minetest.register_on_chat_message(function(name, message, pos)
 		
 end)
 
-
+if minetest.get_modpath("sfinv_buttons") then
+    sfinv_buttons.register_button("show_emoji_menu",
+    {
+        title = "Emoji Menu",
+        action = function(player)
+            local name = player:get_player_name()
+            minetest.show_formspec(name, "emoji_form", form)
+        end,
+        tooltip = "Show emoji menu",
+        image = "1_emoji.png",
+    })
+end
 
 
 
